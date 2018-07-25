@@ -7,6 +7,8 @@ import android.widget.TextView
 import zairat.android.whatsthediff.PullRequest
 import zairat.android.whatsthediff.R
 
+//This is a list adapter for the PR listview on the main activity
+
 class PullRequestAdapter(context: Context,
                          private val pullList: List<PullRequest>)
     : BaseAdapter() {
@@ -30,23 +32,21 @@ class PullRequestAdapter(context: Context,
         // Get view for row item
         val rowView = inflater.inflate(R.layout.pr_list_item, parent, false)
 
-        // Get title element
+        // Get title
         val titleTextView = rowView.findViewById(R.id.pr_title) as TextView
 
         // Get number
         val numberTextView = rowView.findViewById(R.id.pr_number) as TextView
 
-        // Get open summary element
+        // Get open summary
         val openSummaryTextView = rowView.findViewById(R.id.pr_open_summary) as TextView
 
-        //apply all values to views
+        //apply all values to list item views
         val pr = getItem(position) as PullRequest
-        val summary = "Opened on ${pullList[position].created_at} by ${pullList[position].user.login}"
-
-        titleTextView.text = pullList[position].title
-        numberTextView.text = pullList[position].number.toString()
+        val summary = "Opened on ${pr.created_at} by ${pr.user.login}"
+        titleTextView.text = pr.title
+        numberTextView.text = pr.number.toString()
         openSummaryTextView.text = summary
-
 
         return rowView
     }
