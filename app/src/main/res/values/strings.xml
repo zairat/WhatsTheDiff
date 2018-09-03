@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">What\'s the Diff</string>
     <string name="repo_name">javascript-algorithms</string>
+    <string name="title_activity_diff_list">DiffList</string>
 </resources>

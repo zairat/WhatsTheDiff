@@ -7,6 +7,9 @@ import com.google.gson.reflect.TypeToken
 import okhttp3.*
 import java.io.IOException
 import PullRequestAdapter
+import android.content.Intent
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ListView
 
 class PullRequests : AppCompatActivity() {
@@ -38,6 +41,16 @@ class PullRequests : AppCompatActivity() {
                 val adapter = PullRequestAdapter(applicationContext, pullList)
                 runOnUiThread {
                     findViewById<ListView>(R.id.pr_list_view).adapter = adapter
+
+                    //set onclick listener for each item in the list
+                    findViewById<ListView>(R.id.pr_list_view).setOnItemClickListener{
+                    parent: AdapterView<*>, view: View?, position: Int, id: Long ->
+                        //change activity
+                        val intent = Intent(applicationContext, DiffList::class.java)
+                        intent.putExtra("diff_url", pullList[position].diff_url)
+                        startActivity(intent)
+
+                    }
                 }
 
             }
@@ -49,6 +62,7 @@ class PullRequests : AppCompatActivity() {
 class PullRequest(val title: String,
                   val number: Int,
                   val user: User,
-                  val created_at: String)
+                  val created_at: String,
+                  val diff_url: String)
 
 class User(val login: String)
